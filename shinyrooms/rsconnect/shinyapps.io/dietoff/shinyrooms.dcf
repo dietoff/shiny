@@ -1,0 +1,12 @@
+name: shinyrooms
+title: shinyrooms
+username:
+account: dietoff
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 220620
+bundleId: 1009717
+url: https://dietoff.shinyapps.io/shinyrooms/
+when: 1507084540.38085
+asMultiple: FALSE
+asStatic: FALSE
