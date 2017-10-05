@@ -19,7 +19,8 @@ init <- function() {
   AD <- rbind(AD,AD1); rm(AD1)
   AD$Day <- factor(AD$Day,levels = c('M','T','W','R','F'), ordered=T)
   AD$Title <- AD$`Title Short`
-  AD <- select(AD,Num,Crs,Title,Instructor,Day,time.start,time.end,Room,grad)
+  AD$done <- AD$`Done (Y/N)`
+  AD <- select(AD,Num,Crs,Title,Instructor,Day,time.start,time.end,Room,grad,done)
   return(AD)
 }
 
@@ -29,7 +30,7 @@ ui <- fillPage(tags$style(type='text/css', "#reload { margin-top: 25px;}"),
   fluidRow(style = "padding-bottom: 20px;",
            column(2, selectInput('grad', 'Level', c('Undergrad','Grad','Both'), selected = 'Both')),
            column(2, selectInput('label', 'Labels', c('Number','Description','Instructor'), selected = 'Description')),
-           column(2, selectInput('color', 'Color', c('Prefix','Instructor','Level'), selected = 'Prefix')),
+           column(2, selectInput('color', 'Color', c('Prefix','Instructor','Level','Done'), selected = 'Prefix')),
            column(3, checkboxGroupInput('days', 'Days', c('M','T','W','R','F'), selected = c('M','T','W','R','F'), inline=T)),
            column(3, actionButton("reload", "Reload"))
   ),
@@ -52,6 +53,7 @@ server <- function(input, output) {
     if (input$color == 'Prefix') return('Crs');
     if (input$color == 'Instructor') return('Instructor');
     if (input$color == 'Level') return('grad');
+    if (input$color == 'Done') return('done');
   })
   
   dys <- reactive({
